@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSQuizStarter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1 class="quiz-title">JS Quiz Starter</h1>
+            <div class="quiz-subtitle">Test your JavaScript knowledge</div>
+        </div>
+        <div class="progress-container">
+            <h3 class="timer-info">⏱️ Time elapsed: <span id="timer">0</span> seconds</h3>
+            <div class="question-info">📝 Question <span id="question-number">1</span> of <span id="total-questions">10</span></div>
+        </div>
+
+        <div class="question-container">
+            <h2 id="question-text"></h2>
+            <div id="answers-container"></div>
+            <button id="submit-button">❇️ Submit</button>
+            <button id="next-button">➡️ Next Question</button>
+        </div>
+    </div>
+    <div id="results-container" class="hidden">
+        <div class="results">
+            <div class="score" id="final-score"></div>
+            <div class="time-result" id="final-time"></div>
+            <button class="btn">🔄 </button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
