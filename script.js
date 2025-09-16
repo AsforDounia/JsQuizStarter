@@ -119,11 +119,24 @@ const questions = [
     }
 ];
 
+function shuffleArray(array) {
+    const copy = array.slice();
+    for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const temp = copy[i];
+        copy[i] = copy[j];
+        copy[j] = temp;
+    }
+    return copy;
+}
+
+const shuffledQuestions = shuffleArray(questions);
+
 let currentQuestionIndex = 0;
 let score = 0;
 let timer = 0;
 let timerInterval;
-const totalQuestions = questions.length;
+const totalQuestions = shuffledQuestions.length;
 
 const totalElements = document.getElementById('total-questions');
 totalElements.textContent = totalQuestions;
@@ -137,7 +150,7 @@ currentQuestionIndexElement.textContent = currentQuestionIndex + 1;
 const questionText = document.getElementById('question-text');
 
 
-const question = questions[currentQuestionIndex]
+const question = shuffledQuestions[currentQuestionIndex]
 questionText.textContent = question.question;
 
 const answersContainer = document.getElementById('answers-container');
@@ -153,5 +166,89 @@ question.answers.forEach((answer, index) => {
     answersContainer.appendChild(answerDiv);
 });
 
-// function
+function startTimer() {
+    if (timerInterval) return;
+    timerInterval = setInterval(() => {
+        timer++;
+        timerElement.textContent = timer;
+    }, 1000);
+}
 
+
+function startquiz() {
+
+    document.getElementById('welcome-container').classList.add('hidden');
+    document.getElementById('quiz-container').classList.remove('hidden');
+    startTimer();
+}
+
+function submitAnswer() {
+    const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+
+    if (!selectedAnswer) {
+        document.getElementById('alert-msg').textContent = "Please select an answer before submitting or click next question.";
+        document.getElementById('alert-container').classList.remove('hidden');
+        document.getElementById('alert-container').style.display = 'flex';
+        return;
+    }
+    const answerIndex = parseInt(selectedAnswer.value);
+    const currentQuestion = shuffledQuestions[currentQuestionIndex];
+    if (answerIndex === currentQuestion.correct) {
+        score++;
+    }
+    nextQuestion();
+
+}
+
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < shuffledQuestions.length) {
+        currentQuestionIndexElement.textContent = currentQuestionIndex + 1;
+        renderQuestion();
+    } else {
+        endQuiz();
+    }
+    console.log("score : ", score);
+}
+
+function endQuiz() {
+    document.getElementById('quiz-container').classList.add('hidden');
+    document.getElementById('results-container').classList.remove('hidden');
+    document.getElementById('final-score').textContent = score;
+    document.getElementById('final-time').textContent = timer;
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+function renderQuestion() {
+    const question = shuffledQuestions[currentQuestionIndex];
+    questionText.textContent = question.question;
+    answersContainer.innerHTML = '';
+    question.answers.forEach((answer, index) => {
+        const answerDiv = document.createElement('div');
+        answerDiv.className = 'answer-option';
+        answerDiv.innerHTML = `
+            <input type="radio" id="answer${index}" name="answer" value="${index}">
+            <label for="answer${index}">${answer}</label>
+        `;
+        answersContainer.appendChild(answerDiv);
+    });
+}
+
+function closeAlert() {
+    document.getElementById('alert-container').classList.add('hidden');
+     document.getElementById('alert-container').style.display = 'none';
+}
+
+
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    timer = 0;
+    timerElement.textContent = timer;
+    currentQuestionIndexElement.textContent = currentQuestionIndex + 1;
+    document.getElementById('results-container').classList.add('hidden');
+    document.getElementById('quiz-container').classList.remove('hidden');
+    renderQuestion();
+    startTimer();
+}

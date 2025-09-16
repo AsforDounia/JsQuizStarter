@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="quiz-container">
+    <div id="welcome-container" class="welcome-container">
+        <h1 class="quiz-title">Welcome to JS Quiz Starter</h1>
+        <div class="quiz-subtitle">Test your JavaScript knowledge</div>
+        <button id="start-button" class="start-button" onclick="startquiz()">🚀 Start Quiz</button>
+    </div>
+
+    <div class="quiz-container hidden" id="quiz-container">
         <div class="quiz-header">
             <h1 class="quiz-title">JS Quiz Starter</h1>
             <div class="quiz-subtitle">Test your JavaScript knowledge</div>
@@ -20,15 +26,21 @@
         <div class="question-container">
             <h2 id="question-text"></h2>
             <div id="answers-container"></div>
-            <button id="submit-button">❇️ Submit</button>
-            <button id="next-button">➡️ Next Question</button>
+            <button id="submit-button" onclick="submitAnswer()">❇️ Submit</button>
+            <button id="next-button" onclick="nextQuestion()">➡️ Next Question</button>
         </div>
     </div>
-    <div id="results-container" class="hidden">
+    <div id="results-container" class="welcome-container hidden">
         <div class="results">
-            <div class="score" id="final-score"></div>
-            <div class="time-result" id="final-time"></div>
-            <button class="btn">🔄 </button>
+            <h1 class="score quiz-title">Your Score: <span id="final-score"></span></h1>
+            <h3 class="time-result"> Time taken: <span id="final-time"></span> seconds</h3>
+            <button class="start-button" onclick="restartQuiz()">🔄 Restart the Quiz</button>
+        </div>
+    </div>
+    <div id="alert-container" class="hidden">
+        <div class="alert-box">
+            <span class="close-btn" onclick="closeAlert()">&times;</span>
+            <p id="alert-msg">Please select an answer before submitting!</p>
         </div>
     </div>
     <script src="script.js"></script>
