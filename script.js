@@ -175,7 +175,27 @@ function startTimer() {
 }
 
 
+function getSelectedTheme() {
+    const themeRadios = document.getElementsByName('theme');
+    for (let radio of themeRadios) {
+        if (radio.checked) {
+            return radio.value;
+        }
+    }
+    return null;
+}   
 function startquiz() {
+
+    const userName = document.getElementById('username-input').value.trim();
+    const themeSelected = getSelectedTheme();
+    if (!userName || !themeSelected) {
+        const msg = !userName ? "Please enter your name" : "Please select a theme";
+        document.getElementById('alert-msg').textContent = msg + " to start the quiz.";
+        document.getElementById('alert-container').classList.remove('hidden');
+        document.getElementById('alert-container').style.display = 'flex';
+        return;
+    }
+
 
     document.getElementById('welcome-container').classList.add('hidden');
     document.getElementById('quiz-container').classList.remove('hidden');
@@ -252,3 +272,4 @@ function restartQuiz() {
     renderQuestion();
     startTimer();
 }
+

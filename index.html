@@ -9,7 +9,28 @@
 <body>
     <div id="welcome-container" class="welcome-container">
         <h1 class="quiz-title">Welcome to JS Quiz Starter</h1>
-        <div class="quiz-subtitle">Test your JavaScript knowledge</div>
+        <div class="quiz-subtitle">Test your knowledge. Choose a theme and a username.</div>
+        <div style="margin-top:16px; text-align:left;">
+            <label for="username-input">Username / Pseudo</label>
+            <input id="username-input" type="text" placeholder="Enter your username" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.3); background:#0f172a; color:#fff; margin-top:6px;" />
+        </div>
+        <div style="margin-top:16px; text-align:left;">
+            <div style="margin-bottom:8px;">Choose a theme</div>
+            <div class="theme-options">
+                <div class="answer-option">
+                    <input type="radio" id="theme1" name="theme" value="js-basics"> 
+                    <label for="theme1">JavaScript Basics</label>
+                </div>
+                <div class="answer-option">
+                    <input type="radio" id="theme2" name="theme" value="es6"> 
+                    <label for="theme2">ES6+</label>
+                </div>
+                <div class="answer-option">
+                    <input type="radio" id="theme3" name="theme" value="dom-events"> 
+                    <label for="theme3">DOM & Events</label>
+                </div>
+            </div>
+        </div>
         <button id="start-button" class="start-button" onclick="startquiz()">🚀 Start Quiz</button>
     </div>
 
@@ -33,6 +54,7 @@
     <div id="results-container" class="welcome-container hidden">
         <div class="results">
             <h1 class="score quiz-title">Your Score: <span id="final-score"></span></h1>
+            <h3 class="quiz-subtitle">Player: <span id="final-username"></span></h3>
             <h3 class="time-result"> Time taken: <span id="final-time"></span> seconds</h3>
             <button class="start-button" onclick="restartQuiz()">🔄 Restart the Quiz</button>
         </div>
