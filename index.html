@@ -5,9 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JSQuizStarter</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
 </head>
 <body>
-    <div class="quiz-container">
+    <div id="welcome-container" class="welcome-container">
+        <h1 class="quiz-title">Welcome to JS Quiz Starter</h1>
+        <div class="quiz-subtitle">Test your knowledge. Choose a theme and a username.</div>
+        <div style="margin-top:16px; text-align:left;" id="userInfo">
+            <label for="username-input">Username / Pseudo</label>
+            <input id="username-input" type="text" placeholder="Enter your username" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.3); background:#0f172a; color:#fff; margin-top:6px;" />
+        </div>
+
+        <div style="margin-top:16px; text-align:left;">
+            <div style="margin-bottom:8px;">Choose a theme</div>
+            <div class="theme-options">
+                <div class="answer-option">
+                    <input type="radio" id="theme1" name="theme" value="js-basics"> 
+                    <label for="theme1">JavaScript Basics</label>
+                </div>
+                <div class="answer-option">
+                    <input type="radio" id="theme2" name="theme" value="es6"> 
+                    <label for="theme2">ES6+</label>
+                </div>
+                <div class="answer-option">
+                    <input type="radio" id="theme3" name="theme" value="dom-events"> 
+                    <label for="theme3">DOM & Events</label>
+                </div>
+            </div>
+        </div>
+        <div class="welcome-button">
+            <button id="start-button" class="start-button" onclick="startQuiz()">🚀 Start Quiz</button>
+            <button id="history-button" class="start-button hidden" onclick="reviewHistory()"> 📊 Review Your History</button>
+        </div>
+
+    </div>
+
+    <div class="quiz-container hidden" id="quiz-container">
         <div class="quiz-header">
             <h1 class="quiz-title">JS Quiz Starter</h1>
             <div class="quiz-subtitle">Test your JavaScript knowledge</div>
@@ -15,22 +49,51 @@
         <div class="progress-container">
             <h3 class="timer-info">⏱️ Time elapsed: <span id="timer">0</span> seconds</h3>
             <div class="question-info">📝 Question <span id="question-number">1</span> of <span id="total-questions">10</span></div>
+            <div class="question-info" id="question-timer"><span id="question-timer-value">10</span> s</div>
         </div>
 
         <div class="question-container">
             <h2 id="question-text"></h2>
+            <div class="question-info">Note: Question may have one or more correct answers.</div>
+
             <div id="answers-container"></div>
-            <button id="submit-button">❇️ Submit</button>
-            <button id="next-button">➡️ Next Question</button>
+            <button id="submit-button" onclick="submitAnswer()">❇️ Submit</button>
+            <button id="next-button" onclick="nextQuestion()">➡️ Next Question</button>
         </div>
     </div>
-    <div id="results-container" class="hidden">
-        <div class="results">
-            <div class="score" id="final-score"></div>
-            <div class="time-result" id="final-time"></div>
-            <button class="btn">🔄 </button>
+    <div id="results-container" class="welcome-container hidden">
+        <div class="results" id="results">
+            <h1 class="score quiz-title">Your Score: <span id="final-score"></span></h1>
+            <h3 class="quiz-subtitle">Player: <span id="final-username"></span></h3>
+            <h3 class="time-result"> Time taken: <span id="final-time"></span> seconds</h3>
+            <button class="start-button" onclick="restartQuiz()">🔄 Restart the Quiz</button>
+            <button class="start-button" onclick="returnToWelcome()">🏠 Return to Welcome Page</button>
+            <button class="start-button" onclick="reviewAnswers()">📝 Review Answers</button>
         </div>
     </div>
+    <div id="alert-container" class="hidden">
+        <div class="alert-box">
+            <span class="close-btn" onclick="closeAlert()">&times;</span>
+            <p id="alert-msg">Please select an answer before submitting!</p>
+        </div>
+    </div>
+
+    <div id="history-container" class="welcome-container hidden">
+        <button class="close-model" onclick="returnToWelcome()">X</button>
+        <div id="user-history">
+            <label for="history-username-input">Enter your username to review history:</label>
+            <input id="history-username-input" type="text" placeholder="Enter your username" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.3); background:#0f172a; color:#fff; margin-top:6px;" />
+            <button class="start-button" onclick="loadUserHistory()">Load History</button>
+        </div>
+        <div id="history-list-container" class="hidden">
+            <h1 class="quiz-title">Your Quiz History</h1>
+            <div id="history-list"></div>
+            <button class="start-button" onclick="returnToWelcome()">🏠 Return to Welcome Page</button>
+        </div>
+    </div>
+
+
+
     <script src="script.js"></script>
 </body>
 </html>
