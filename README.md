@@ -1,40 +1,40 @@
-Contexte du projet
-Avec la montée en puissance des outils numériques dans l’éducation, votre entreprise souhaite concevoir une application simple de quiz interactif permettant aux apprenants de tester leurs connaissances de manière ludique.
+# JSQuizStarter
 
-C’est dans ce cadre qu’est née JSQuizStarter, une première version du quiz réalisée uniquement côté Front-end (HTML, CSS, JavaScript).
+## Présentation du projet
+JSQuizStarter est une application de quiz interactif conçue pour permettre aux apprenants de tester leurs connaissances de manière ludique. Ce projet est une version **Front-end uniquement** réalisée avec **HTML, CSS et JavaScript natif**, mettant en avant la manipulation du DOM, la gestion des événements et la logique applicative basique.
 
-L’objectif est de créer un quiz statique complet, ergonomique et agréable à utiliser, tout en posant les bases de la logique applicative.
+L’application propose plusieurs thématiques de quiz, un suivi des scores, un chronomètre pour chaque question et un stockage des résultats en **Local Storage**. 
 
-✍ Contraintes et Exigences Fonctionnelles :
-👋 L'utilisateur doit d'abord choisir entre trois thematiques possible pour passer le quizz et choisir un pseudo / username.
-
-👋la thematique doit contenir au minimum 10 questions avec 2 à 4 réponses possibles.
-
-👋 L'utilisateur doit pouvoir selectioner la/les reponses (des question peuvent avoir plusieurs reponses correctes)
-
-👋 À la fin du quiz, un bouton "Valider" affiche le score obtenu et les corrections.
-
-👋 Fixer une limite de temps par question / si temps ecoulé une fausse reponse est considerée pour la question.
-
-👋 Utiliser local Storage pour stocker les resultats de quizz et persister les données (Pseudo / DateTime/ Score / Thematique / Reponses).
-
-👋 Bonus attendu :
-
-Utiliser GitHub Pages pour deployer le rendu)
-Export des rapports en PDF.
-DashBoard presnetant des statistiques et un classement.
 ---
 
-🚨 Contraintes et Exigences Techniques :
-◼ Le projet doit être développé uniquement avec HTML, CSS et JavaScript natif.
+## Fonctionnalités
 
-◼ Le code doit être structuré : séparation claire entre index.html, style.css, script.js.
+### Fonctionnalités principales
+- Sélection de pseudo / username avant de commencer le quiz.
+- Choix entre 3 thématiques de quiz différentes.
+- Chaque thématique contient au minimum 10 questions avec 2 à 4 réponses possibles.
+- Les questions peuvent avoir **plusieurs réponses correctes**.
+- Affichage du score et des corrections après validation.
+- Limite de temps pour chaque question. En cas de dépassement, la question est considérée comme incorrecte.
+- Stockage des résultats dans **Local Storage** : pseudo, date/heure, score, thématique et réponses.
 
-◼ Utilisation obligatoire des concepts de base JS :
+### Bonus (facultatif)
+- Déploiement sur **GitHub Pages**.
+- Export des résultats en PDF.
+- Dashboard présentant des statistiques et un classement des utilisateurs.
 
-Variables, conditions, boucles.
-Manipulation du DOM.
-Gestion d’événements (click, change).
-◼ Le design doit être simple mais lisible, avec une mise en page responsive (desktop/mobile).
+---
 
-◼ Le projet doit être versionné sur GitHub avec un README clair (présentation, installation, utilisation).
+## Technologies utilisées
+- **HTML5**
+- **CSS3**
+- **JavaScript (vanilla)**
+- **Local Storage** pour persistance des résultats
+
+---
+
+## Installation et utilisation
+
+1. **Cloner le dépôt GitHub** :
+```bash
+git clone https://github.com/votre-utilisateur/JSQuizStarter.git](https://github.com/AsforDounia/JsQuizStarter.git)
