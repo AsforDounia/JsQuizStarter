@@ -1,5 +1,5 @@
 body {
-    background: linear-gradient(135deg, #2e53f5 0%, #8c45d3 50%, #cf30e1 100%); ;
+    background: linear-gradient(135deg, #2e53f5 0%, #8c45d3 50%, #cf30e1 100%);
     /* background: linear-gradient(135deg,  #6366f1 0%, #06b6d4 100%); */
     display: flex;
     min-height: 93.5vh;
@@ -17,6 +17,7 @@ body {
     padding: 40px 24px;
     width: 50%;
     color: white;
+    margin-top: -2rem;
 }
 
 .start-button{
@@ -33,6 +34,7 @@ body {
     opacity: 0.9;
 }
 .quiz-container{
+    position: relative;
     background: #1e293b;
     border-radius: 24px;
     border: 1px solid rgba(255, 255, 255, 0.3);
@@ -193,3 +195,209 @@ body {
     cursor: pointer;
 }
 
+#question-timer{
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    border: rgb(36, 255, 36) 2px solid;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(36, 255, 36);
+}
+
+
+.welcome-button{
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+.welcome-button button{
+    width: 40%;
+}
+
+
+#history-container{
+    position: relative;
+    background: #1e293b;
+}
+
+#history-list-container{
+    margin-top: 1rem;
+}
+.close-model{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    background-color: transparent;
+    color: rgb(227, 17, 181);
+
+    /* color: linear-gradient(135deg, #2e53f5 0%, #8c45d3 50%, #cf30e1 100%); */
+
+}
+
+.history-item{
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+    list-style: none;
+    text-align: left;
+    color: white;
+}
+.history-item:hover{
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #06b6d4;
+    box-shadow: 0 0 5px #06b6d4;
+    transform: translateX(8px);
+    cursor: pointer;
+    
+}
+.pdf-download{
+    background: linear-gradient(135deg,  #6366f1 0%, #06b6d4 100%);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-top: -1rem;
+}
+
+
+.results{
+    padding: 1rem;
+}
+
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    body {
+        min-height: 100vh;
+        padding: 10px;
+        flex-direction: column;
+        background: #1e293b;
+    }
+
+    .welcome-container,
+    .quiz-container {
+        width: 90% !important;
+        padding: 20px !important;
+        border: none !important;
+        max-height: 92vh !important;
+        border-radius: 0 !important;
+        overflow: auto !important;
+    }
+
+    .quiz-title {
+        font-size: 1.8em;
+    }
+
+    .quiz-subtitle {
+        font-size: 0.9em;
+    }
+
+    .answer-option label {
+        font-size: 0.9em;
+        padding: 0.7rem;
+        width: 100%;
+    }
+
+    #submit-button, #next-button {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .theme-options {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .theme-options label {
+        padding: 15px;
+        font-size: 0.9em;
+        gap: 0;
+    }
+
+    .answer-option {
+        margin: 0;
+    }
+    #question-timer {
+        width: 20px;
+        height: 20px;
+        font-size: 0.8em;
+    }
+
+    .start-button {
+        width: 100%;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .welcome-button button {
+        width: 68%;
+    }
+
+    .history-item {
+        font-size: 0.9em;
+        padding: 0.5rem;
+    }
+
+    .pdf-download {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .alert-box {
+        width: 90%;
+        font-size: 0.9em;
+    }
+
+
+    input {
+        width: 95% !important;
+    }
+    label {
+        width: 88% !important;
+    }
+
+
+    .welcome-button{
+        flex-direction: column;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .close-model{
+        top: 2rem;
+    }
+
+
+    .review-container{
+        /* padding top 10 rem and other 0 */
+    padding: 3rem 0 0 0 !important;
+    /* margin: 0px; */
+    max-height: 98vh;
+    overflow: auto;
+    top: -3rem;
+    max-width: 100vh;
+    overflow-x: hidden;
+    }
+
+
+    #history-container .close-model{
+        top:0;
+    }
+
+    #history-container{
+        padding-top: 2rem !important;
+    }
+}
