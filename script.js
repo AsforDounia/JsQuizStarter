@@ -482,11 +482,7 @@ function startQuiz() {
     renderQuestion();
     startTimer();
 
-    const userHistory = JSON.parse(localStorage.getItem("quizHistory")) || [];
-    const historyButton = document.getElementById("history-button");
-    if (userHistory.length > 0 && historyButton) {
-        historyButton.classList.remove("hidden");
-    }
+
 }
 
 
@@ -671,6 +667,11 @@ function restartQuiz() {
 }
 
 function returnToWelcome() {
+	    const userHistory = JSON.parse(localStorage.getItem("quizHistory")) || [];
+    const historyButton = document.getElementById("history-button");
+    if (userHistory.length > 0 && historyButton) {
+        historyButton.classList.remove("hidden");
+    }
 
     const resultsContainer = document.getElementById('results-container');
 
