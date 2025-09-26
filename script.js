@@ -460,5 +460,77 @@ function replayIncorrectAnswers() {
 
 document.getElementById("close-quiz").addEventListener("click",showWelcome);
 document.getElementById("dashboard-button").addEventListener("click",showDashboard);
+document.getElementById("restar-quiz").addEventListener("click",restartQuiz);
 
+
+function restartQuiz() {
+    // Reset question timer state
+    clearQuestionTimer();
+    questionState.secondsLeft = 10;
+    questionState.hasAnswered = false;
+
+    // Reset quiz state
+    quizState.currentQuestionIndex = 0;
+    quizState.score = 0;
+    quizState.timer = 0;
+    quizState.userAnswers = [];
+    quizState.shuffledQuestions = shuffleArray(
+        JSON.parse(localStorage.getItem("questionsByTheme"))?.[quizState.selectedTheme] || []
+    );
+    quizState.totalQuestions = quizState.shuffledQuestions.length;
+
+    // Update DOM
+    const timerElement = document.getElementById('timer');
+    if (timerElement) timerElement.textContent = quizState.timer;
+
+    const questionIndexEl = document.getElementById('question-number');
+    if (questionIndexEl) questionIndexEl.textContent = quizState.currentQuestionIndex + 1;
+
+    const perQuestionEl = document.getElementById('question-timer-value');
+    if (perQuestionEl) perQuestionEl.textContent = questionState.secondsLeft;
+
+    const totalEl = document.getElementById('total-questions');
+    if (totalEl) totalEl.textContent = quizState.totalQuestions;
+
+    // Show/hide containers
+    document.getElementById('results-container').classList.add('hidden');
+    document.getElementById('quiz-container').classList.remove('hidden');
+
+    // Reset progress in localStorage (replace existing attempt if any)
+    let quizHistory = JSON.parse(localStorage.getItem("quizHistory")) || [];
+    let userEntry = quizHistory.find(u => u.userName === quizState.username);
+    const newAttempt = {
+        date: new Date().toLocaleString(),
+        theme: quizState.selectedTheme,
+        score: quizState.score,
+        totalQuestions: quizState.totalQuestions,
+        timeTaken: quizState.timer,
+        answers: [],
+        status: "in-progress",
+        currentQuestionIndex: quizState.currentQuestionIndex,
+        shuffledQuestions: [...quizState.shuffledQuestions],
+        questionState: {
+            secondsLeft: questionState.secondsLeft,
+            currentQuestions: questionState.currentQuestions
+        },
+        hasAnsweredCurrent: false
+    };
+
+    if (userEntry) {
+        const existingIndex = userEntry.attempts.findIndex(a => a.theme === quizState.selectedTheme);
+        if (existingIndex !== -1) {
+            // Replace existing attempt
+            userEntry.attempts[existingIndex] = newAttempt;
+        } else {
+            userEntry.attempts.push(newAttempt);
+        }
+    } else {
+        quizHistory.push({ userName: quizState.username, attempts: [newAttempt] });
+    }
+    localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
+
+    // Render first question and start timer
+    renderQuestion();
+    startGlobalTimer();
+}
 
