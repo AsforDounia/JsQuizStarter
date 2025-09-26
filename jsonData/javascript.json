@@ -1,0 +1,119 @@
+{
+  "theme": "javascript",
+  "title": "JavaScript Basics",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which JavaScript method selects an element by its ID?",
+      "answers": [
+        "document.querySelector()",
+        "document.getElementById()",
+        "document.getElement()",
+        "document.selectById()"
+      ],
+      "correct": ["document.getElementById()"]
+    },
+    {
+      "id": 2,
+      "question": "What does 'DOM' stand for?",
+      "answers": [
+        "Document Object Model",
+        "Data Object Management",
+        "Dynamic Object Method",
+        "Document Oriented Mapping"
+      ],
+      "correct": ["Document Object Model"]
+    },
+    {
+      "id": 3,
+      "question": "How do you declare variables in JavaScript?",
+      "answers": [
+        "var myVar",
+        "let myVar",
+        "const myVar",
+        "All of the above"
+      ],
+      "correct": ["All of the above"]
+    },
+    {
+      "id": 4,
+      "question": "What is the difference between '==' and '==='?",
+      "answers": [
+        "No difference",
+        "=== checks type and value; == checks value only",
+        "== checks type and value; === checks value only",
+        "Both check type and value"
+      ],
+      "correct": ["=== checks type and value; == checks value only"]
+    },
+    {
+      "id": 5,
+      "question": "Which of the following are JavaScript data types? (Select all that apply)",
+      "answers": [
+        "String",
+        "Number",
+        "Boolean",
+        "Character",
+        "Object",
+        "Undefined"
+      ],
+      "correct": ["String", "Number", "Boolean", "Object", "Undefined"]
+    },
+    {
+      "id": 6,
+      "question": "Which constructs can iterate over array elements? (Select all that apply)",
+      "answers": [
+        "for loop",
+        "forEach()",
+        "map()",
+        "for...of",
+        "while loop"
+      ],
+      "correct": ["for loop", "forEach()", "for...of", "while loop"]
+    },
+    {
+      "id": 7,
+      "question": "How do you define a function in JavaScript?",
+      "answers": [
+        "function myFunction() {}",
+        "const myFunction = () => {}",
+        "const myFunction = function() {}",
+        "All of the above"
+      ],
+      "correct": ["All of the above"]
+    },
+    {
+      "id": 8,
+      "question": "How do you access the first element of an array 'myArray'?",
+      "answers": [
+        "myArray[1]",
+        "myArray[0]",
+        "myArray.first()",
+        "myArray.get(0)"
+      ],
+      "correct": ["myArray[0]"]
+    },
+    {
+      "id": 9,
+      "question": "What is the scope of a variable declared with 'let'?",
+      "answers": [
+        "Global",
+        "Function",
+        "Block",
+        "Module"
+      ],
+      "correct": ["Block"]
+    },
+    {
+      "id": 10,
+      "question": "Which of the following are valid ways to create an object? (Select all that apply)",
+      "answers": [
+        "const obj = {}",
+        "const obj = new Object()",
+        "const obj = Object.create(null)",
+        "const obj = []"
+      ],
+      "correct": ["const obj = {}", "const obj = new Object()", "const obj = Object.create(null)"]
+    }
+  ]
+}

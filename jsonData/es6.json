@@ -1,0 +1,120 @@
+{
+  "theme": "es6",
+  "title": "ES6+ Features",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which keyword creates a block-scoped variable?",
+      "answers": [
+        "var",
+        "let",
+        "function",
+        "class"
+      ],
+      "correct": ["let"]
+    },
+    {
+      "id": 2,
+      "question": "Const variables...",
+      "answers": [
+        "Cannot be reassigned",
+        "Cannot be mutated at all",
+        "Are function-scoped",
+        "Hoist with initialization"
+      ],
+      "correct": ["Cannot be reassigned"]
+    },
+    {
+      "id": 3,
+      "question": "Arrow functions differ from regular functions because...",
+      "answers": [
+        "They bind their own 'this'",
+        "They do not have their own 'this'",
+        "They can be used as constructors",
+        "They always return a value"
+      ],
+      "correct": ["They do not have their own 'this'"]
+    },
+    {
+      "id": 4,
+      "question": "Which syntax creates a template literal?",
+      "answers": [
+        "'single quotes'",
+        "\"double quotes\"",
+        "`backticks`",
+        "(parentheses)"
+      ],
+      "correct": ["`backticks`"]
+    },
+    {
+      "id": 5,
+      "question": "What does array destructuring do?",
+      "answers": [
+        "Merges arrays",
+        "Copies arrays",
+        "Unpacks values from arrays",
+        "Sorts arrays"
+      ],
+      "correct": ["Unpacks values from arrays"]
+    },
+    {
+      "id": 6,
+      "question": "What is the spread operator (...) used for?",
+      "answers": [
+        "To iterate arrays",
+        "To expand iterables into places where multiple elements are expected",
+        "To compare arrays",
+        "To restrict object properties"
+      ],
+      "correct": ["To expand iterables into places where multiple elements are expected"]
+    },
+    {
+      "id": 7,
+      "question": "Which of the following convert array-like objects to arrays? (Select all that apply)",
+      "answers": [
+        "Array.from()",
+        "[...iterable] (spread)",
+        "Array.prototype.slice.call(obj)",
+        "Object.keys(obj)"
+      ],
+      "correct": [
+        "Array.from()",
+        "[...iterable] (spread)",
+        "Array.prototype.slice.call(obj)"
+      ]
+    },
+    {
+      "id": 8,
+      "question": "What does Promise.all() do?",
+      "answers": [
+        "Resolves with the first fulfilled value",
+        "Rejects with the last error",
+        "Resolves when all promises resolve",
+        "Runs promises sequentially"
+      ],
+      "correct": ["Resolves when all promises resolve"]
+    },
+    {
+      "id": 9,
+      "question": "Which statement imports a default export?",
+      "answers": [
+        "import { something } from 'module'",
+        "import * as something from 'module'",
+        "import something from 'module'",
+        "require('module')"
+      ],
+      "correct": ["import something from 'module'"]
+    },
+    {
+      "id": 10,
+      "question": "What does the rest parameter (...args) do?",
+      "answers": [
+        "Spreads an array into arguments",
+        "Collects remaining arguments into an array",
+        "Creates a copy of an array",
+        "Destructures an object"
+      ],
+      "correct": ["Collects remaining arguments into an array"]
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+{
+  "theme": "dom-events",
+  "title": "DOM & Events",
+  "questions": [
+    {
+      "id": 1,
+      "question": "How do you add a click event listener to an element?",
+      "answers": [
+        "element.onClick(() => {})",
+        "element.addEventListener('click', handler)",
+        "element.add('click', handler)",
+        "element.click(handler)"
+      ],
+      "correct": ["element.addEventListener('click', handler)"]
+    },
+    {
+      "id": 2,
+      "question": "What does event.preventDefault() do?",
+      "answers": [
+        "Stops all events",
+        "Prevents default browser action",
+        "Stops event propagation",
+        "Removes event listener"
+      ],
+      "correct": ["Prevents default browser action"]
+    },
+    {
+      "id": 3,
+      "question": "Which property gives the target element of an event?",
+      "answers": [
+        "event.node",
+        "event.target",
+        "event.source",
+        "event.element"
+      ],
+      "correct": ["event.target"]
+    },
+    {
+      "id": 4,
+      "question": "Which methods can select multiple elements from the DOM? (Select all that apply)",
+      "answers": [
+        "document.querySelectorAll()",
+        "document.getElementsByClassName()",
+        "document.getElementById()",
+        "document.getElementsByTagName()"
+      ],
+      "correct": [
+        "document.querySelectorAll()",
+        "document.getElementsByClassName()",
+        "document.getElementsByTagName()"
+      ]
+    },
+    {
+      "id": 5,
+      "question": "How do you stop event bubbling?",
+      "answers": [
+        "event.stop()",
+        "event.stopPropagation()",
+        "event.cancelBubble()",
+        "event.preventDefault()"
+      ],
+      "correct": ["event.stopPropagation()"]
+    },
+    {
+      "id": 6,
+      "question": "Which API is best for manipulating CSS classes?",
+      "answers": [
+        "element.styles",
+        "element.classList",
+        "element.classes",
+        "element.setClass"
+      ],
+      "correct": ["element.classList"]
+    },
+    {
+      "id": 7,
+      "question": "How do you create a new DOM element?",
+      "answers": [
+        "document.create()",
+        "document.createElement()",
+        "new Element()",
+        "window.createElement()"
+      ],
+      "correct": ["document.createElement()"]
+    },
+    {
+      "id": 8,
+      "question": "What does innerText return?",
+      "answers": [
+        "Raw HTML content",
+        "Rendered text considering CSS visibility",
+        "Text including hidden nodes",
+        "Outer HTML content"
+      ],
+      "correct": ["Rendered text considering CSS visibility"]
+    },
+    {
+      "id": 9,
+      "question": "Which property sets inline CSS styles?",
+      "answers": [
+        "element.css",
+        "element.style",
+        "element.attributes.style",
+        "element.inlineStyle"
+      ],
+      "correct": ["element.style"]
+    },
+    {
+      "id": 10,
+      "question": "How do you remove a DOM element?",
+      "answers": [
+        "element.delete()",
+        "element.remove()",
+        "element.parentNode.removeChild(element)",
+        "Both 2 and 3"
+      ],
+      "correct": ["Both 2 and 3"]
+    }
+  ]
+}
