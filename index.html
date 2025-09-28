@@ -44,7 +44,7 @@
 
             <button id="dashboard-button" class="start-button">📈 View Dashboard</button>
 
-            <button id="history-button" class="start-button hidden" > 📊 Review Your History</button>
+            <button id="history-button" class="start-button" > 📊 Review Your History</button>
         </div>
 
     </div>
@@ -150,11 +150,19 @@
                 <div class="stat-value" id="highest-score">0%</div>
                 <div class="stat-label">Highest Score</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card top-users-card">
+                <span class="stat-icon">🏅</span>
+                <div class="stat-value top-users" id="top-users-list">
+                    <!-- Top 3 users will be inserted here -->
+                </div>
+                <div class="stat-label">Top 3 Users</div>
+            </div>
+
+            <!-- <div class="stat-card">
                 <span class="stat-icon">⏱️</span>
                 <div class="stat-value" id="avg-time">0s</div>
                 <div class="stat-label">Average Time</div>
-            </div>
+            </div> -->
  
         </div>
 

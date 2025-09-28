@@ -1,5 +1,6 @@
+let historyContainer;
 export const reviewHistory = () => {
-	const historyContainer = document.getElementById('history-container');
+	historyContainer = document.getElementById('history-container');
 	if (!historyContainer) return;
 	historyContainer.classList.remove('hidden');
 	document.getElementById('welcome-container')?.classList.add('hidden');
@@ -7,7 +8,7 @@ export const reviewHistory = () => {
 	document.getElementById('history-list-container')?.classList.add('hidden');
 };
 
-export const loadUserHistory = (onSelectAttempt) => {
+export const loadUserHistory = () => {
 	const user = document.getElementById('history-username-input')?.value.trim();
 	if (!user) {
 		alert('Please enter your name to view history.');
@@ -29,7 +30,21 @@ export const loadUserHistory = (onSelectAttempt) => {
 		const li = document.createElement('li');
 		li.textContent = `Theme: ${attempt.theme}, Score: ${attempt.score}/${attempt.totalQuestions}, Time: ${attempt.timeTaken}s, Date: ${attempt.date}`;
 		li.classList.add('history-item');
-		li.addEventListener('click', () => onSelectAttempt?.(attempt, user));
+        li.addEventListener('click', () => {
+			reviewAnswers({
+				username: userEntry.userName,
+				userAnswers: attempt.answers,
+				selectedTheme: attempt.theme,
+				score: attempt.score,
+				timer: attempt.timeTaken
+			});
+
+			// Attach PDF button listener
+			const pdfBtn = document.getElementById("pdf-btn");
+			if (pdfBtn) {
+				pdfBtn.onclick = () => generatePDF(user);
+			}
+		});
 		historyList.appendChild(li);
 	});
 };
@@ -46,12 +61,11 @@ export const reviewAnswers = (quizState) => {
     reviewContainer.className = 'review-container';
     reviewContainer.style.position = 'relative';
 
-    console.log("userAnswers", quizState.userAnswers);
-    console.log("userName : ", quizState.username);
+
     reviewContainer.innerHTML = `
     <div style="display: flex; justify-content: space-between; align-items: center;">
         <button id="pdf-btn" class="pdf-download">Download PDF</button>
-        <button id="close-btn" class="close-model" onclick="returnToWelcome()">X</button>
+        <button id="close-btn" class="close-model ">X</button>
     </div>
     
         <h2 id="hello-title" style="text-align: center; color: white; margin-bottom: 2rem; font-size: 2rem; font-weight: 600;">
@@ -72,6 +86,7 @@ export const reviewAnswers = (quizState) => {
         margin: '0'
     });
 
+    console.log(quizState);
     quizState.userAnswers.forEach((item, index) => {
         const questionElement = document.createElement('div');
         questionElement.className = 'review-question';
@@ -133,6 +148,10 @@ export const reviewAnswers = (quizState) => {
     });
 
     const resultsContainer = document.getElementById('results-container');
+    if (resultsContainer && resultsContainer.classList.contains('hidden')) {
+        resultsContainer.classList.remove('hidden');
+        historyContainer.classList.add('hidden');
+    }
     if (resultsContainer) {
         resultsContainer.innerHTML = '';
         resultsContainer.style.overflowY = 'auto';
@@ -140,4 +159,5 @@ export const reviewAnswers = (quizState) => {
         resultsContainer.style.padding = '0';
         resultsContainer.appendChild(reviewContainer);
     }
+
 }

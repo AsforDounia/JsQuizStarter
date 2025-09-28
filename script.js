@@ -532,7 +532,7 @@ const historyButton = document.getElementById("history-button");
 if (historyButton) historyButton.addEventListener("click", reviewHistory);
 
 const loadHistoryBtn = document.getElementById("load-history");
-if (loadHistoryBtn) loadHistoryBtn.addEventListener("click", loadUserHistory);
+if (loadHistoryBtn) loadHistoryBtn.addEventListener("click",loadUserHistory);
 
 // const reviewAnswersBtn = document.getElementById("review-your-answers");
 // if (reviewAnswersBtn) reviewAnswersBtn.addEventListener("click", () => reviewAnswers(quizState));

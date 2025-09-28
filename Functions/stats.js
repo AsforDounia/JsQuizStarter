@@ -95,6 +95,60 @@ function setText(id, value) {
     if (el) el.textContent = value;
 }
 
+// export const displayStatsOnDashboard = () => {
+//     try {
+//         const quizHistory = JSON.parse(localStorage.getItem('quizHistory')) || [];
+//         const stats = calculateStats(quizHistory);
+
+//         // Update Stats Cards
+//         setText('total-users', stats.totalUsers);
+//         setText('total-quizzes', stats.totalQuizzes);
+//         setText('avg-score', `${stats.avgScore}%`);
+//         setText('highest-score', `${stats.highestScore}%`);
+//         setText('avg-time', `${stats.avgTime}s`);
+//         setText('completion-rate', `${stats.completionRate}%`);
+//         setText('average-questions', stats.averageQuestionsPerQuiz);
+
+//         // Populate Table
+//         const tableBody = document.querySelector('#history-table tbody');
+//         if (!tableBody) return;
+//         tableBody.innerHTML = '';
+
+//         quizHistory
+//             .flatMap(user => {
+//                 const userName = user.userName || user.username;
+//                 if (user.attempts && Array.isArray(user.attempts)) {
+//                     return user.attempts.map(attempt => ({ ...attempt, userName }));
+//                 }
+//                 return user.score !== undefined ? [{ ...user, userName }] : [];
+//             })
+//             // ✅ Sort newest first
+//             .sort((a, b) => (parseDate(b.date) || 0) - (parseDate(a.date) || 0))
+//             .forEach(attempt => {
+//                 const row = document.createElement('tr');
+//                 const totalQs = attempt.totalQuestions || attempt.total || 10;
+//                 const score = attempt.score || 0;
+//                 const status = attempt.status || (score > 0 ? 'completed' : 'incomplete');
+
+//                 row.innerHTML = `
+//                     <td>${parseDate(attempt.date)?.toLocaleDateString('en-GB') || ''}</td>
+//                     <td>${attempt.userName}</td>
+//                     <td>${attempt.theme || 'unknown'}</td>
+//                     <td>${Math.round((score / totalQs) * 100)}%</td>
+//                     <td>${attempt.timeTaken || 0}</td>
+//                     <td>${status}</td>
+//                 `;
+//                 tableBody.appendChild(row);
+//             });
+
+//         // createCharts(stats,quizHistory);
+
+//         return stats;
+
+//     } catch (error) {
+//         console.error('Error displaying stats:', error);
+//     }
+// };
 export const displayStatsOnDashboard = () => {
     try {
         const quizHistory = JSON.parse(localStorage.getItem('quizHistory')) || [];
@@ -109,20 +163,46 @@ export const displayStatsOnDashboard = () => {
         setText('completion-rate', `${stats.completionRate}%`);
         setText('average-questions', stats.averageQuestionsPerQuiz);
 
+        // ===== Calculate Top 3 Users =====
+        const allAttempts = quizHistory.flatMap(user => {
+            const userName = user.userName || user.username;
+            if (user.attempts && Array.isArray(user.attempts)) {
+                return user.attempts.map(attempt => ({ ...attempt, userName }));
+            }
+            return user.score !== undefined ? [{ ...user, userName }] : [];
+        });
+
+        const userScoresMap = {};
+
+        allAttempts.forEach(a => {
+            const totalQs = a.totalQuestions || a.total || 10;
+            const scorePct = (a.score || 0) / totalQs * 100;
+            if (!userScoresMap[a.userName]) userScoresMap[a.userName] = { totalScore: 0, attempts: 0 };
+            userScoresMap[a.userName].totalScore += scorePct;
+            userScoresMap[a.userName].attempts++;
+        });
+
+        const topUsers = Object.entries(userScoresMap)
+            .map(([userName, data]) => ({ userName, avgScore: data.totalScore / data.attempts }))
+            .sort((a, b) => b.avgScore - a.avgScore)
+            .slice(0, 3);
+
+        // Display top 3 in stats card
+        const topUsersListEl = document.getElementById('top-users-list');
+        if (topUsersListEl) {
+            topUsersListEl.innerHTML = topUsers
+                .map((u, i) => {
+                    const medals = ['🥇', '🥈', '🥉'];
+                    return `<sapn class='medals'>${medals[i] || ''} </sapn>${u.userName} (${Math.round(u.avgScore)}%)`;
+                })
+                .join('<br>');
+        }
+
         // Populate Table
         const tableBody = document.querySelector('#history-table tbody');
-        if (!tableBody) return;
-        tableBody.innerHTML = '';
+        if (tableBody) tableBody.innerHTML = '';
 
-        quizHistory
-            .flatMap(user => {
-                const userName = user.userName || user.username;
-                if (user.attempts && Array.isArray(user.attempts)) {
-                    return user.attempts.map(attempt => ({ ...attempt, userName }));
-                }
-                return user.score !== undefined ? [{ ...user, userName }] : [];
-            })
-            // ✅ Sort newest first
+        allAttempts
             .sort((a, b) => (parseDate(b.date) || 0) - (parseDate(a.date) || 0))
             .forEach(attempt => {
                 const row = document.createElement('tr');
@@ -141,11 +221,10 @@ export const displayStatsOnDashboard = () => {
                 tableBody.appendChild(row);
             });
 
-        // createCharts(stats,quizHistory);
-
         return stats;
 
     } catch (error) {
         console.error('Error displaying stats:', error);
     }
 };
+
