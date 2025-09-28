@@ -688,6 +688,9 @@ Stats Summary
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .top-users{
+            font-size: 1.2rem;
+        }
 
         .stat-label {
             color: #94a3b8;
@@ -837,4 +840,8 @@ Stats Summary
             .export-buttons {
                 flex-direction: column;
             }
+        }
+        .medals{
+            color: white;
+                -webkit-text-fill-color: aliceblue;
         }
