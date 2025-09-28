@@ -6,7 +6,10 @@
     <title>JSQuizStarter</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+
 
 </head>
 <body>
@@ -74,7 +77,7 @@
             <h3 class="time-result"> Time taken: <span id="final-time"></span> seconds</h3>
             <button id="restar-quiz" class="start-button">🔄 Restart the Quiz</button>
             <button class="start-button return-welcome">🏠 Return to Welcome Page</button>
-            <button class="start-button review-answers-btn">📝 Review Answers</button>
+            <button id="review-your-answers" class="start-button review-answers-btn">📝 Review Answers</button>
             <button id="retry-incorrect-btn" class="start-button">♻️ Retry Incorrect Only</button>
         </div>
     </div>
@@ -90,7 +93,7 @@
         <div id="user-history">
             <label for="history-username-input">Enter your username to review history:</label>
             <input id="history-username-input" type="text" placeholder="Enter your username" style="width:100%; padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.3); background:#0f172a; color:#fff; margin-top:6px;" />
-            <button class="start-button" >Load History</button>
+            <button id="load-history" class="start-button" >Load History</button>
         </div>
         <div id="history-list-container" class="hidden">
             <h1 class="quiz-title">Your Quiz History</h1>
@@ -101,18 +104,9 @@
 
     <div id="review-container" class="hidden"></div>
 
-    <!-- <div id="dashboard-container" class="welcome-container hidden">
-    <h1 class="quiz-title">📊 Quiz Dashboard</h1>
-    <div id="dashboard-kpis" style="display:flex; gap:12px; flex-wrap:wrap; margin:16px 0;"></div>
-    <canvas id="dashboard-chart" width="400" height="200"></canvas>
-    <div style="height:16px"></div>
-    <div style="margin-top:16px; display:flex; gap:8px; flex-wrap:wrap;">
-        <button id="export-json" class="start-button">💾 Export JSON</button>
-        <button id="export-csv" class="start-button">📑 Export CSV</button>
-    </div> -->
 
  <div id="dashboard-container" class="hidden">
-        <h2 class="dashboard-title">📊 Quiz Analytics Dashboard</h2>
+        <h2 class="dashboard-title">Quiz Analytics Dashboard</h2>
 
         <!-- Filters Section -->
         <div class="filters">
@@ -120,9 +114,6 @@
             
             <select id="filter-theme">
                 <option value="">📚 All Themes</option>
-                <option value="javascript">JavaScript Basics</option>
-                <option value="es6">ES6+</option>
-                <option value="dom-events">DOM & Events</option>
             </select>
             
             <label for="filter-start-date">📅 From:</label>
@@ -208,7 +199,7 @@
                 <button id="export-csv" class="export-btn">📑 Export CSV</button>
                 <button id="export-pdf" class="export-btn">📄 Export PDF</button>
             </div>
-            <button id="return-welcome" class="start-button return-btn">🏠 Return to Welcome Page</button>
+            <button id="return-welcome" class="start-button return-btn return-welcome">🏠 Return to Welcome Page</button>
         </div>
     </div>
 

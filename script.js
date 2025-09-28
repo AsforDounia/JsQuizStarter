@@ -1,9 +1,14 @@
-import { loadData } from "./Functions/loadData.js";
-import { getThemeNames } from "./Functions/getThemeNames.js";
+import { loadData , shuffleArray ,getThemeNames } from "./Functions/loadData.js";
 import { showQuizContainer, showWelcome , showDashboard } from "./Functions/uiNavigation.js";
 import { renderQuestionToDOM } from "./Functions/uiHelper.js";
-import { shuffleArray } from "./Functions/shuffleArray.js";
 import { startGlobalTimer, clearQuestionTimer, stopQuestionTimer, startQuestionTimer } from "./Functions/timers.js";
+import { reviewHistory, loadUserHistory , reviewAnswers } from "./Functions/history.js";
+import { generatePDF } from "./Functions/export.js";
+import { displayStatsOnDashboard } from "./Functions/stats.js";
+import { createCharts } from "./Functions/chart.js";
+import { calculateStats } from "./Functions/stats.js";
+import { initFilters } from "./Functions/searchFilter.js";
+import { initExportButtons } from "./Functions/export.js";
 
 // --- Centralized quiz state ---
 const quizState = {
@@ -38,7 +43,7 @@ function saveQuizProgress() {
 	if (timerElement) quizState.timer = parseInt(document.getElementById('timer').textContent, 10) || 0;
 
     const currentAttempt = {
-        date: quizState.date,
+        date: quizState.date || new Date().toLocaleString(),
         theme: quizState.selectedTheme,
         score: quizState.score,
         totalQuestions: quizState.totalQuestions,
@@ -111,13 +116,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
 
-	const filterSelect = document.getElementById('filter-theme');
-	themeNames.forEach((item)=>{
-		let option = document.createElement('option');
-		option.textContent = item;
-		option.value = item;
-		filterSelect.appendChild(option);
-	});
+	// const filterSelect = document.getElementById('filter-theme');
+	// themeNames.forEach((item)=>{
+	// 	let option = document.createElement('option');
+	// 	option.textContent = item;
+	// 	option.value = item;
+	// 	filterSelect.appendChild(option);
+	// });
 });
 
 // --- Update continue button visibility ---
@@ -225,9 +230,20 @@ async function startQuiz() {
     quizState.shuffledQuestions = shuffleArray(questionState.currentQuestions);
     quizState.totalQuestions = quizState.shuffledQuestions.length;
 
-    document.getElementById("total-questions").textContent = quizState.totalQuestions;
-    document.getElementById("question-number").textContent = quizState.currentQuestionIndex + 1;
-    document.getElementById("final-username").textContent = quizState.username;
+    // document.getElementById("total-questions").textContent = quizState.totalQuestions;
+    // document.getElementById("question-number").textContent = quizState.currentQuestionIndex + 1;
+    // document.getElementById("final-username").textContent = quizState.username;
+
+	const totalQuestions = document.getElementById("total-questions");
+if (totalQuestions) totalQuestions.textContent = quizState.totalQuestions;
+
+const questionNumber = document.getElementById("question-number");
+if (questionNumber) questionNumber.textContent = quizState.currentQuestionIndex + 1;
+
+const finalUsername = document.getElementById("final-username");
+if (finalUsername) finalUsername.textContent = quizState.username;
+
+	
 
     renderQuestion();
     startGlobalTimer();
@@ -387,19 +403,35 @@ function endQuiz() {
     clearQuestionTimer();
     stopQuestionTimer();
 
-    document.getElementById('quiz-container').classList.add('hidden');
-    document.getElementById('results-container').classList.remove('hidden');
+    // document.getElementById('quiz-container').classList.add('hidden');
+    // document.getElementById('results-container').classList.remove('hidden');
 
-    document.getElementById('final-username').textContent = quizState.username;
-    document.getElementById('final-score').textContent = quizState.score;
-    document.getElementById('final-time').textContent = quizState.timer;
+    // document.getElementById('final-username')?.textContent = quizState.username;
+    // document.getElementById('final-score')?.textContent = quizState.score;
+    // document.getElementById('final-time')?.textContent = quizState.timer;
+
+	const quizContainer = document.getElementById('quiz-container');
+if (quizContainer) quizContainer.classList.add('hidden');
+
+const resultsContainer = document.getElementById('results-container');
+if (resultsContainer) resultsContainer.classList.remove('hidden');
+
+const finalUsername = document.getElementById('final-username');
+if (finalUsername) finalUsername.textContent = quizState.username;
+
+const finalScore = document.getElementById('final-score');
+if (finalScore) finalScore.textContent = quizState.score;
+
+const finalTime = document.getElementById('final-time');
+if (finalTime) finalTime.textContent = quizState.timer;
+
 
     // Load quiz history
     let quizHistory = JSON.parse(localStorage.getItem("quizHistory")) || [];
     let userEntry = quizHistory.find(u => u.userName === quizState.username);
 
     const completedAttempt = {
-        date: quizState.date,
+        date: quizState.date || new Date().toLocaleString(),
         theme: quizState.selectedTheme,
         score: quizState.score,
         totalQuestions: quizState.totalQuestions,
@@ -425,6 +457,8 @@ function endQuiz() {
 
     // Save updated history
     localStorage.setItem("quizHistory", JSON.stringify(quizHistory));
+console.log(quizState.userAnswers);
+
 }
 
 
@@ -449,18 +483,72 @@ function replayIncorrectAnswers() {
     quizState.userAnswers = [];
     hasAnsweredCurrent = false;
 
-    document.getElementById("quiz-container").classList.remove("hidden");
-    document.getElementById("results-container").classList.add("hidden");
-    document.getElementById("question-number").textContent = 1;
-    document.getElementById("total-questions").textContent = quizState.totalQuestions;
+    // document.getElementById("quiz-container").classList.remove("hidden");
+    // document.getElementById("results-container").classList.add("hidden");
+    // document.getElementById("question-number").textContent = 1;
+    // document.getElementById("total-questions").textContent = quizState.totalQuestions;
+
+	
+	const quizContainer = document.getElementById("quiz-container");
+	if (quizContainer) quizContainer.classList.remove("hidden");
+
+	const resultsContainer = document.getElementById("results-container");
+	if (resultsContainer) resultsContainer.classList.add("hidden");
+
+	const questionNumber = document.getElementById("question-number");
+	if (questionNumber) questionNumber.textContent = 1;
+
+	const totalQuestions = document.getElementById("total-questions");
+	if (totalQuestions) totalQuestions.textContent = quizState.totalQuestions;
 
     renderQuestion();
     startGlobalTimer(previousTime);
 }
 
-document.getElementById("close-quiz").addEventListener("click",showWelcome);
-document.getElementById("dashboard-button").addEventListener("click",showDashboard);
-document.getElementById("restar-quiz").addEventListener("click",restartQuiz);
+// document.getElementById("close-quiz").addEventListener("click",showWelcome);
+// document.getElementById("dashboard-button").addEventListener("click",showDashboard);
+// document.getElementById("restar-quiz").addEventListener("click",restartQuiz);
+// document.getElementById("history-button").addEventListener("click",reviewHistory);
+// document.getElementById("load-history").addEventListener("click",loadUserHistory);
+// document.getElementById("review-your-answers").addEventListener("click", () => reviewAnswers(quizState));
+// document.getElementById("pdf-btn").addEventListener("click",  () =>  generatePDF(quizState.username));
+
+const closeQuiz = document.getElementById("close-quiz");
+if (closeQuiz) closeQuiz.addEventListener("click", showWelcome);
+
+const dashboardButton = document.getElementById("dashboard-button");
+if (dashboardButton) dashboardButton.addEventListener("click", () => {
+	showDashboard();
+	const stats = displayStatsOnDashboard();
+	createCharts(stats);
+	// console.log(stats);
+	
+});
+
+const restartQuizBtn = document.getElementById("restar-quiz");
+if (restartQuizBtn) restartQuizBtn.addEventListener("click", restartQuiz);
+
+const historyButton = document.getElementById("history-button");
+if (historyButton) historyButton.addEventListener("click", reviewHistory);
+
+const loadHistoryBtn = document.getElementById("load-history");
+if (loadHistoryBtn) loadHistoryBtn.addEventListener("click", loadUserHistory);
+
+// const reviewAnswersBtn = document.getElementById("review-your-answers");
+// if (reviewAnswersBtn) reviewAnswersBtn.addEventListener("click", () => reviewAnswers(quizState));
+
+// const pdfBtn = document.getElementById("pdf-btn");
+// if (pdfBtn) pdfBtn.addEventListener("click", () => generatePDF(quizState.username));
+
+const reviewAnswersBtn = document.getElementById("review-your-answers");
+if (reviewAnswersBtn) {
+    reviewAnswersBtn.addEventListener("click", () => {
+        reviewAnswers(quizState); // call reviewAnswers first
+
+        const pdfBtn = document.getElementById("pdf-btn");
+        if (pdfBtn) pdfBtn.addEventListener("click", () => generatePDF(quizState.username));
+    });
+}
 
 
 function restartQuiz() {
@@ -534,3 +622,19 @@ function restartQuiz() {
     startGlobalTimer();
 }
 
+document.querySelectorAll('.return-welcome').forEach(element => {
+    element.addEventListener('click', showWelcome);
+});
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    initFilters(calculateStats, createCharts);
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    initExportButtons();
+});
