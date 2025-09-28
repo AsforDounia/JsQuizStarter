@@ -597,7 +597,6 @@ Stats Summary
     position: fixed;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     background: #1e293b;
-    border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     color: #fff;
     overflow-y: auto;
@@ -725,7 +724,9 @@ Stats Summary
 
         .chart-container canvas {
             max-width: 100%;
-            height: auto;
+            min-height: 25rem;
+            max-height: 25rem;
+            color: white;
         }
 
         /* Table Styles */
