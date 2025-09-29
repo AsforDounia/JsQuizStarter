@@ -1,40 +1,79 @@
-# JSQuizStarter
+JSQuiz Advanced
 
-## Présentation du projet
-JSQuizStarter est une application de quiz interactif conçue pour permettre aux apprenants de tester leurs connaissances de manière ludique. Ce projet est une version **Front-end uniquement** réalisée avec **HTML, CSS et JavaScript natif**, mettant en avant la manipulation du DOM, la gestion des événements et la logique applicative basique.
-
-L’application propose plusieurs thématiques de quiz, un suivi des scores, un chronomètre pour chaque question et un stockage des résultats en **Local Storage**. 
+Une application de quiz éducative moderne et ludique, développée en HTML5, CSS3 et JavaScript (ES6+), avec persistance locale et visualisations interactives grâce à Chart.js.  
+Ce projet est une évolution du prototype JSQuizStarter et intègre des fonctionnalités avancées de manipulation du DOM, `localStorage`, `async/await`, et d’exports de données.
 
 ---
 
-## Fonctionnalités
+Fonctionnalités
 
-### Fonctionnalités principales
-- Sélection de pseudo / username avant de commencer le quiz.
-- Choix entre 3 thématiques de quiz différentes.
-- Chaque thématique contient au minimum 10 questions avec 2 à 4 réponses possibles.
-- Les questions peuvent avoir **plusieurs réponses correctes**.
-- Affichage du score et des corrections après validation.
-- Limite de temps pour chaque question. En cas de dépassement, la question est considérée comme incorrecte.
-- Stockage des résultats dans **Local Storage** : pseudo, date/heure, score, thématique et réponses.
+Quiz Dynamique
+- Chargement des questions depuis des fichiers JSON (un par thématique : `javascript.json`, `es6.json`, `dom-events.json`…).
+- Génération dynamique de toutes les questions et options (aucune question en dur dans le HTML).
+- Gestion des questions à réponses multiples.
+- Chronomètre par question + chronomètre global.
+- Feedback visuel immédiat (réponse correcte/incorrecte).
 
-### Bonus (facultatif)
-- Déploiement sur **GitHub Pages**.
-- Export des résultats en PDF.
-- Dashboard présentant des statistiques et un classement des utilisateurs.
+Historique et Dashboard
+- Sauvegarde des parties en localStorage : pseudo, score, date, thématique.
+- Statistiques calculées avec `map`, `filter`, `reduce` :
+  - Nombre de parties par thématique.
+  - Score moyen par thématique.
+  - Meilleur score global + classement (Top 3 pseudos).
+- Visualisation graphique avec Chart.js :
+  - Répartition des parties par thématique (camembert).
+  - Courbe de progression des scores dans le temps (line chart).
+
+Exports
+- Export des statistiques en JSON.
+- Export des statistiques en CSV (compatible Excel).
+
+Bonus
+- Reprise d’une partie interrompue (sauvegardée en `localStorage`).
+- Mode révision : rejouer uniquement les questions échouées.
 
 ---
 
-## Technologies utilisées
-- **HTML5**
-- **CSS3**
-- **JavaScript (vanilla)**
-- **Local Storage** pour persistance des résultats
+Technologies utilisées
+- HTML5 / CSS3 → Structure & design responsive.  
+- JavaScript ES6+ → DOM dynamique, modules, async/await.  
+- Chart.js → Visualisation interactive des statistiques.  
+- localStorage → Persistance des données côté client.  
+- JSON → Fichiers de questions par thématique.  
 
 ---
 
-## Installation et utilisation
+Structure du projet
+┣ 📂 Functions
+┃ ┣ 📜 chart.js # Gestion des graphiques (Chart.js)
+┃ ┣ 📜 export.js # Export JSON & CSV
+┃ ┣ 📜 history.js # Gestion de l’historique
+┃ ┣ 📜 loadData.js # Chargement des fichiers JSON (fetch + async/await)
+┃ ┣ 📜 searchFilter.js # Recherche et filtrage
+┃ ┣ 📜 stats.js # Calcul des statistiques
+┃ ┣ 📜 timers.js # Chronomètre global et par question
+┃ ┣ 📜 uiHelper.js # Fonctions utilitaires pour le DOM
+┃ ┗ 📜 uiNavigation.js # Gestion de la navigation UI
+┣ 📂 jsonData
+┃ ┣ 📜 dom-events.json # Thématique DOM Events
+┃ ┣ 📜 es6.json # Thématique ES6
+┃ ┣ 📜 javascript.json # Thématique JavaScript
+┃ ┗ 📜 manifest.json # Métadonnées
+┣ 📜 .gitignore
+┣ 📜 index.html # Page principale
+┣ 📜 README.md # Documentation
+┣ 📜 script.js # Script principal (import des modules)
+┗ 📜 style.css # Feuilles de style
 
-1. **Cloner le dépôt GitHub** :
+
+Installation et utilisation
+
+1. Cloner le dépôt GitHub :
 ```bash
 git clone https://github.com/votre-utilisateur/JSQuizStarter.git](https://github.com/AsforDounia/JsQuizStarter.git)
+
+2. Lancer l’application :
+Ouvrir index.html dans un navigateur moderne (Chrome, Firefox, Edge).
+
+3. Tester en ligne (GitHub Pages) :
+[Lien vers l'application] : (https://asfordounia.github.io/JsQuizStarter/)
